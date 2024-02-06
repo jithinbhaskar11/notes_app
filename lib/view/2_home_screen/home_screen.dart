@@ -88,7 +88,7 @@ bool isSwitched=false;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
             Text('SK',style: TextStyle(color: Colors.white),),
             Text('INK',style: TextStyle(color: Colors.blue),)
@@ -96,7 +96,7 @@ bool isSwitched=false;
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () async {
               final result = await showSearch(
                 context: context,
@@ -109,7 +109,7 @@ bool isSwitched=false;
         backgroundColor: Colors.purple,
 
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
 
       body:
@@ -130,12 +130,13 @@ bool isSwitched=false;
           itemBuilder: (context, index) {
           return Slidable(
           startActionPane: ActionPane(
-          motion: StretchMotion(),
+          motion: const StretchMotion(),
           children: [
           SlidableAction(
           onPressed: (context) {
             titleController.text=dataList[index].title;
             descController.text=dataList[index].description;
+            selectedVal=dataList[index].category;
             showModalBottomSheet(
               isScrollControlled: true,
               context: context, builder: (context) {
@@ -144,36 +145,36 @@ bool isSwitched=false;
                 top: 100
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
                       TextField(
                           controller: titleController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Title',
                             labelStyle: TextStyle(color: Colors.purple),
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
                           )
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       TextField(
                         controller: descController,
                         maxLines: 5,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Description',
                           labelStyle: TextStyle(color: Colors.purple),
                           focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
 
                       DropdownButtonFormField(
                         value: selectedVal,
                         items: catList.map(
                                 (e){
-                              return DropdownMenuItem(child: Text(e,style: TextStyle(color: Colors.purple),),value: e,);
+                              return DropdownMenuItem(child: Text(e,style: const TextStyle(color: Colors.purple),),value: e,);
                             }
                         ).toList(),
                         onChanged: (value) {
@@ -181,9 +182,9 @@ bool isSwitched=false;
                             selectedVal=value;
                           });
                         },
-                        icon: Icon(Icons.arrow_drop_down,color: Colors.purple,),
+                        icon: const Icon(Icons.arrow_drop_down,color: Colors.purple,),
                         dropdownColor: Colors.purple[50],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
                             labelText: 'Select Category',
@@ -205,9 +206,14 @@ bool isSwitched=false;
                               Get.snackbar('Please fill all feilds', '',colorText: Colors.red);
                             }
                           },
-                            child: Text('Update'),color: Colors.purple,),
-                          SizedBox(width: 10,),
-                          MaterialButton(onPressed: (){},child: Text('Cancel'),color: Colors.purple[100],),
+                            child: const Text('Update'),color: Colors.purple,),
+                          const SizedBox(width: 10,),
+                          MaterialButton(onPressed: (){
+                            titleController.clear();
+                            descController.clear();
+                            selectedVal=catList[0];
+                            Get.back();
+                          },child: const Text('Cancel'),color: Colors.purple[100],),
 
                         ],
                       )
@@ -222,24 +228,24 @@ bool isSwitched=false;
           ),
           ],
           ),
-          endActionPane: ActionPane(motion: StretchMotion(), children: [
+          endActionPane: ActionPane(motion: const StretchMotion(), children: [
           SlidableAction(
           onPressed: (context){
             Get.defaultDialog(
               title: 'Delete?',
-               content: Text('Are you sure, you want to delete the note?'),
+               content: const Text('Are you sure, you want to delete the note?'),
               actions: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(onPressed: (){
                       Get.back();
-                    }, child: Text('Cancel')),
+                    }, child: const Text('Cancel')),
                     TextButton(onPressed: (){
                       deleteData(index);
                       Get.back();
                       Get.snackbar('Deleted successfully', '',colorText: Colors.white);
-                    }, child: Text('Delete',style: TextStyle(color: Colors.red),)),
+                    }, child: const Text('Delete',style: TextStyle(color: Colors.red),)),
                   ],
                 )
               ]
@@ -251,7 +257,7 @@ bool isSwitched=false;
           child: Card(
           child: Container(
           width: double.infinity,
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(color: Colors.blue[50]),
           child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -259,16 +265,16 @@ bool isSwitched=false;
           children: [
           Text(
           '${dataList[index].title}',
-          style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+          style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
           ),
-          SizedBox(
+          const SizedBox(
           height: 10,
           ),
-          Text('${dataList[index].description}',style: TextStyle(color: Colors.black),),
-          SizedBox(
+          Text(dataList[index].description,style: const TextStyle(color: Colors.black),),
+          const SizedBox(
           height: 10,
           ),
-          Text('${dataList[index].category}',style: TextStyle(color: Colors.black),)
+          Text(dataList[index].category,style: const TextStyle(color: Colors.black),)
           ],
           ),
           ),
@@ -276,7 +282,7 @@ bool isSwitched=false;
           );
           },
           separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
+          return const SizedBox(
           height: 20,
           );
           },
@@ -292,36 +298,36 @@ bool isSwitched=false;
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom,
             top: 100),
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   TextField(
                     controller: titleController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Title',
                       labelStyle: TextStyle(color: Colors.purple),
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
                     )
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   TextField(
                     controller: descController,
                     maxLines: 5,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Description',
                       labelStyle: TextStyle(color: Colors.purple),
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
 
                   DropdownButtonFormField(
                       value: selectedVal,
                       items: catList.map(
                               (e){
-                            return DropdownMenuItem(child: Text(e,style: TextStyle(color: Colors.purple),),value: e,);
+                            return DropdownMenuItem(value: e,child: Text(e,style: const TextStyle(color: Colors.purple),),);
                           }
                       ).toList(),
                       onChanged: (value) {
@@ -329,9 +335,9 @@ bool isSwitched=false;
                           selectedVal=value;
                         });
                       },
-                    icon: Icon(Icons.arrow_drop_down,color: Colors.purple,),
+                    icon: const Icon(Icons.arrow_drop_down,color: Colors.purple,),
                     dropdownColor: Colors.purple[50],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.purple)),
                       labelText: 'Select Category',
@@ -354,12 +360,12 @@ bool isSwitched=false;
                         else{
                           Get.snackbar('Please fil all feilds', '',colorText: Colors.red);
                         }
-                      },
-                        child: Text('Save'),color: Colors.purple,),
-                      SizedBox(width: 10,),
+                      },color: Colors.purple,
+                        child: const Text('Save'),),
+                      const SizedBox(width: 10,),
                       MaterialButton(onPressed: (){
                         Get.back();
-                      },child: Text('Cancel'),color: Colors.purple[100],),
+                      },color: Colors.purple[100],child: const Text('Cancel'),),
 
                     ],
                   )
@@ -368,50 +374,50 @@ bool isSwitched=false;
             ),
           );
         },);
-      },child: Icon(Icons.add),backgroundColor: Colors.purple[900],),
+      },backgroundColor: Colors.purple[900],child: const Icon(Icons.add,color: Colors.white,),),
 
       drawer: Drawer(
         child: Container(
-          decoration:BoxDecoration(),
+          decoration:const BoxDecoration(),
           child: Column(
             children: [
-              SizedBox(height: 70,),
+              const SizedBox(height: 70,),
               Container(
                 width: double.infinity,
                 height: 200,
-                child: Icon(Icons.speaker_notes,size: 200,color: Colors.greenAccent,),
+                child: const Icon(Icons.speaker_notes,size: 200,color: Colors.greenAccent,),
               ),
-              Divider(height: 10,),
+              const Divider(height: 10,),
 
               Expanded(child: ListView(
                 children: [
                   ListTile(
                     onTap: (){
-                      Get.to(TermsAndConditions());
+                      Get.to(const TermsAndConditions());
                     },
-                    leading: Icon(Icons.newspaper,color: Colors.purple,),
-                    title: Text('Terms and Conditions',style: TextStyle(color: Colors.purple),),
+                    leading: const Icon(Icons.newspaper,color: Colors.purple,),
+                    title: const Text('Terms and Conditions',style: TextStyle(color: Colors.purple),),
                   ),
-                  Divider(height: 10,),
+                  const Divider(height: 10,),
                   ListTile(
                     onTap: (){
-                      Get.to(Support_Screen());
+                      Get.to(const Support_Screen());
                     },
-                    leading: Icon(Icons.contact_support,color: Colors.purple,),
-                    title: Text('Support',style: TextStyle(color: Colors.purple),),
+                    leading: const Icon(Icons.contact_support,color: Colors.purple,),
+                    title: const Text('Support',style: TextStyle(color: Colors.purple),),
                   ),
-                  Divider(height: 10,),
+                  const Divider(height: 10,),
                   ListTile(
                     onTap: (){
                       Get.to(PrivacyPolicy());
                     },
-                    leading: Icon(Icons.privacy_tip,color: Colors.purple,),
-                    title: Text('Privacy policy',style: TextStyle(color: Colors.purple),),
+                    leading: const Icon(Icons.privacy_tip,color: Colors.purple,),
+                    title: const Text('Privacy policy',style: TextStyle(color: Colors.purple),),
                   ),
-                  Divider(height: 10,),
+                  const Divider(height: 10,),
                   ListTile(
-                    leading: Icon(Icons.dark_mode,color: Colors.purple,),
-                      title: Text('Dark/Light mode',style: TextStyle(color: Colors.purple),),
+                    leading: const Icon(Icons.dark_mode,color: Colors.purple,),
+                      title: const Text('Dark/Light mode',style: TextStyle(color: Colors.purple),),
                     trailing: Switch(value: isSwitched,
                         onChanged: (value){
                       setState(() {
@@ -443,7 +449,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
         },

@@ -55,7 +55,6 @@ class PrivacyPolicy extends StatelessWidget {
                 style: TextStyle(fontSize: 16,color: Colors.black),
               ),
 
-              // Add more sections as needed...
 
               Text(
                 'Last Updated: [16-01-2024]',

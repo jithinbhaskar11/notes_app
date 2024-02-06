@@ -6,7 +6,6 @@ class Support_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: Text('Support',style: TextStyle(fontWeight: FontWeight.bold,),),

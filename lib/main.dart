@@ -10,9 +10,6 @@ Future <void> main()async{
   Hive.registerAdapter(NotesModelAdapter());
   var box = await Hive.openBox<NotesModel>('noteBox');
 
-
-
-
   runApp(Notes_App());
 }
 
